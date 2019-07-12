@@ -114,7 +114,7 @@ function controllPost(){
      while($row=mysqli_fetch_array($result))
      {
 
-        $html.=viewPost($row[0],$row[1],$row[2],$row[3],$row[4]);
+        $html.=viewPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
      }
 
      return $html;

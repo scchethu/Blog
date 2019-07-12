@@ -147,7 +147,7 @@ function editProfile(){
     ';
     }
 
-function viewPost($id,$n,$t,$c,$im)
+function viewPost($id,$n,$t,$c,$im,$da)
 {
 return ' <div class="card mt-3 shadow">
     
@@ -163,7 +163,7 @@ return ' <div class="card mt-3 shadow">
             <div class="card-text float-left">
                     <b>Author: '.$n.'</b>
                     <br/>
-                   <span class="text-muted">Created date:12-12-1996</span> 
+                   <span class="text-muted">Created date:'.$da.'</span> 
             </div>
             <div class="btn-group float-right">
                 <a href ="?like='.$id.'"class="btn btn-primary">'.getLike($id).' Likes</a>
