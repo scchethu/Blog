@@ -53,11 +53,12 @@ function fPassword()
 {
     return ' <h1 class="heading">Forgot Password</h1>
     <form method="post" action="">
-                <input type="text" name="username" placeholder="Username">
-                <input type="number"  name="phone" placeholder="Enter phone number">
-                <a href =""class="btn btn-info">Generate otp</a>
-                <input type="number"  name="otp" placeholder="Enter otp">
-                <input type="submit" name="fpass" value=""/>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="number"  name="phone" placeholder="Enter phone number" required>
+                <input type="submit" class="btn btn-info" name="otp" value="Generate otp"/>
+                <input type="number"  name="otp" placeholder="Enter otp" required>
+                <!--<input type="password"  name="password" placeholder="Enter new password" required>-->
+                <input type="submit" name="fpass" value="-----"/>
             </form>
             </div>
         </div>';
@@ -105,14 +106,22 @@ return '
           <div class="font-weight-bold lead text-center shadow p-2">
               <h2>My Blog</h2>
           </div>
-         '.$va.'
-        
+          '.$va.'
+          
         </div>
 </div>';
 
+
 }
 
+
 function viewProfile($name,$p,$im,$em){
+    $btn="";
+    if($_GET['route']!="edt")
+    {
+        $btn= '<a href ="?route=edt" class="btn btn-primary " >editProfile</a>';
+    }
+    
     return '<div class="card">
             <div class="card-header">
             Profile
@@ -130,20 +139,30 @@ function viewProfile($name,$p,$im,$em){
                             Email id : '.$em.'
                         </div>
             </div>
+           '.$btn.'
         </div>';
 }
-function editProfile(){
+function edtProfile($id,$un,$p,$ph,$im,$em){
     return '
-     <h1 class="heading">Edit Profile</h1>
+    <div class="card mt-3 shadow">
+        <div class="card-header">
+        Edit Profile 
+        </div>
+        <div class="card-body">
             <form method="post" action="" enctype="multipart/form-data">
-                      <input type="text"  name="username" placeholder="username" required>
-                      <input type="text"  name="email" placeholder="email" required>
-                      <input type="number"  name="phone" placeholder="Enter phone number" required>
-                      <input type="password" name="password"  placeholder="Enter Password" required>
-                      <input type="file" name="image">
-                      <input type="submit" name="edt" value="editProfile"/>
+                
+                      <input type="text" name="username" value="'.$un.'" >
+                      <input type="hidden" value="'.$id.'" name="id">
+                      <input type="text"  name="email" value="'.$em.'" placeholder="email id" required>
+                      <input type="number"  name="phone" value="'.$ph.'" placeholder="Enter phone number" required>
+                      <input type="password" name="password" value="'.$p.'"  placeholder="Enter Password" required>
+                      <input type="file" value="'.$im.'" name="image">
+                      <input type="submit" name="edt" value="edtProfile"/>
                       <div class="clearfix"></div>
                   </form>
+                  </div>
+    </div>
+
     ';
     }
 

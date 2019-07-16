@@ -32,9 +32,26 @@ if(isset($_GET['route']))
         echo Box(loginForm());
         else
                     echo home(controllPost());
+        ?>
+        <nav>
+          <ul class="pagination">
+              <li><a href="?pageno=1">First</a></li>
+              <li class="<?php if($pageno<=1){ echo 'disabled'; } ?>">
+                  <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
+              </li>
+              <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+                  <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
+              </li>
+              <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+          </ul>
+      </nav>
+<?php
         break;
         case "add":
         echo home(addPost());
+        break;
+        case "edt":
+        echo home(editProfile());
         break;
         case "logout":
         session_destroy();
