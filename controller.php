@@ -105,7 +105,7 @@ $conn->close();
 }
 
 
-function controllPost(){
+/*function controllPost(){
     $conn = new mysqli("localhost","root","","login");
     $result = mysqli_query($conn,"SELECT * FROM post order by id desc");
     $html="";
@@ -126,8 +126,62 @@ function controllPost(){
    
 
     $conn->close();
+}*/
+function controllPost(){
+    if (isset($_GET['pageno'])) {
+      $pageno = $_GET['pageno'];
+    } else {
+        $pageno = 1;
+    }
+
+    $no_of_records_per_page = 5;
+    $offset = ($pageno-1) * $no_of_records_per_page;
+    
+    $conn = new mysqli("localhost","root","","login");
+    if ($conn->connect_error)
+    {
+        die($conn->connect_error);
+    }
+    
+    $total_pages_sql = "SELECT COUNT(*) FROM post ";
+    $result = mysqli_query($conn,$total_pages_sql);
+    $total_rows = mysqli_fetch_array($result)[0];
+    $total_pages = ceil($total_rows / $no_of_records_per_page);
+    
+    $sql = "SELECT * FROM post  order by id desc LIMIT $offset, $no_of_records_per_page";
+    $res_data = mysqli_query($conn,$sql);
+    $html='';
+    while($row = mysqli_fetch_array($res_data)){
+        $html.=viewPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$pageno);
+    }
+    return compact('pageno','total_pages','html');
+    $conn->close();
 }
+function yPost(){
+    $a=$_SESSION['user'];
+    $conn = new mysqli("localhost","root","","login");
+    $result = mysqli_query($conn,"SELECT * FROM post WHERE name='$a' order by id desc");
+    $html="";
+    if(mysqli_num_rows($result)>0)
+    {
+     while($row=mysqli_fetch_array($result))
+     {
+
+        $html.=myPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
+     }
+     return $html;
+    }
+    else
+    { 
+    alert("No post found");
+    }
+    $conn->close();
+}
+
 function controllProfile(){
+    if(!isset($_SESSION['user'])) {
+        header("Location:index.php");
+        }
     $a=$_SESSION['user'];
     $conn = new mysqli("localhost","root","","login");
     $result = mysqli_query($conn,"SELECT * FROM registration WHERE name='$a'");
@@ -143,7 +197,7 @@ function controllProfile(){
 
     $conn->close();
 }
-function editProfile(){
+function EditProfile(){
     $a=$_SESSION['user'];
     $conn = new mysqli("localhost","root","","login");
     $result = mysqli_query($conn,"SELECT * FROM registration WHERE name='$a'");
@@ -151,7 +205,7 @@ function editProfile(){
     if(mysqli_num_rows($result)>0)
     {
     $row=mysqli_fetch_array($result);
-        return edtProfile($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
+        return SaveProfile($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
     }
 
     $conn->close();
@@ -266,7 +320,7 @@ function deleteLikeById($id,$user)
      while($row=mysqli_fetch_array($result))
      {
 
-        $html.=editPost($row[0],$row[2],$row[3],$row[4]);
+        $html.=EditPost($row[0],$row[2],$row[3],$row[4]);
      }
 
      
@@ -336,33 +390,7 @@ function getLike($id)
 }
 
 
-// if (isset($_GET['pageno'])) {
-//     $pageno = $_GET['pageno'];
-// } else {
-//     $pageno = 1;
-// }
-// $no_of_records_per_page = 2;
-// $offset = ($pageno-1) * $no_of_records_per_page;
 
-// $conn = new mysqli("localhost","root","","login");
-// if ($conn->connect_error)
-// {
-//     die($conn->connect_error);
-// }
-
-// $total_pages_sql = "SELECT COUNT(*) FROM post";
-// $result = mysqli_query($conn,$total_pages_sql);
-// $total_rows = mysqli_fetch_array($result)[0];
-// $total_pages = ceil($total_rows / $no_of_records_per_page);
-
-// $sql = "SELECT * FROM post LIMIT $offset, $no_of_records_per_page";
-// $res_data = mysqli_query($conn,$sql);
-// $html='';
-// while($row = mysqli_fetch_array($res_data)){
-//     $html.=viewPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
-// }
-// return $html;
-// $conn->close();
 
 
 ?>

@@ -15,21 +15,35 @@ form {
     width: 100%;
 }
 
-form input {
+form input,
+form button {
     width: 100%;
     font-size: 1em;
     display: block;
-    border: none;
     margin-top: 10px;
+    margin-bottom: 5px;
     padding: 10px 3px;
     outline: none;
 }
 
-form input[type="submit"]:hover {
+form button {
+    width: 100%;
+    font-size: 1em;
+    display: block;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px 3px;
+    outline: none;
+}
+
+form input[type="submit"]:hover,
+form button:hover {
     background-color: #e74c3c;
 }
 
-form input[type="submit"] {
+form input[type="submit"],
+form button {
     background-color: #2ecc71;
     color: white;
     cursor: pointer;
@@ -38,6 +52,10 @@ form input[type="submit"] {
 .heading {
     text-align: center;
     color: white;
+}
+
+.hhead {
+    font-family: 'Pacifico', cursive;
 }
 
 form a {
@@ -55,4 +73,22 @@ a:visited {
 
 .clearfix {
     clear: both;
+}
+
+.overflowTest {
+    background: #4CAF50;
+    color: white;
+    padding: 15px;
+    width: 50%;
+    height: 100px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+}
+
+#cnav {
+    background-color: #e74c3c!important;
+}
+
+.nav-link {
+    color: white!important;
 }
