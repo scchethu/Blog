@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2019 at 01:02 PM
+-- Generation Time: Jul 29, 2019 at 07:38 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 5.6.38
 
@@ -39,6 +39,7 @@ CREATE TABLE `likecount` (
 --
 
 INSERT INTO `likecount` (`name`, `id`, `like`) VALUES
+('', 54, 1),
 ('Aaaa', 25, 1),
 ('Aaaa', 26, 1),
 ('Aaaa', 36, 1),
@@ -57,11 +58,13 @@ INSERT INTO `likecount` (`name`, `id`, `like`) VALUES
 ('Manish Alva', 38, 1),
 ('Manish Alva', 39, 1),
 ('Manish Alva', 50, 1),
+('Manish Alva', 54, 1),
+('Manish Alva', 57, 1),
 ('scchethu', 46, 1),
 ('scchethu', 50, 1),
-('scchethu', 53, 1),
 ('scchethu', 54, 1),
-('scchethu', 55, 1);
+('scchethu', 55, 1),
+('scchethu', 56, 1);
 
 -- --------------------------------------------------------
 
@@ -72,7 +75,7 @@ INSERT INTO `likecount` (`name`, `id`, `like`) VALUES
 CREATE TABLE `post` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
-  `title` varchar(30) NOT NULL,
+  `title` text NOT NULL,
   `body` text NOT NULL,
   `image` varchar(50) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -84,7 +87,7 @@ CREATE TABLE `post` (
 
 INSERT INTO `post` (`id`, `name`, `title`, `body`, `image`, `date`) VALUES
 (36, 'Aaaa', 'hello', 'this is a image', 'upload/w2_1562926505.jpg', '2019-07-12 15:45:05'),
-(38, 'Manish Alva', 'hello', '<p>We write code</p>', 'upload/w5_1562928023.jpg', '2019-07-12 16:10:23'),
+(38, 'Manish Alva', 'hello', '                                                            <p>We write code</p>\r\n                \r\n                \r\n                ', 'upload/w5_1563616717.jpg', '2019-07-12 16:10:23'),
 (40, 'Aaaa', 'hello', 'this is a image', 'upload/Abs_206_1563187374.jpg', '2019-07-15 16:12:54'),
 (41, 'Aaaa', 'tittle', 'we write code', 'upload/w1_1563187396.jpg', '2019-07-15 16:13:16'),
 (42, 'Aaaa', 'ghfghfh', 'ksdjhjkabdjkbkajbdjjjjjj', 'upload/w2_1563187417.jpg', '2019-07-15 16:13:37'),
@@ -97,9 +100,11 @@ INSERT INTO `post` (`id`, `name`, `title`, `body`, `image`, `date`) VALUES
 (50, 'Aaaa', 'hello', '<p><ul><li>hello</li><li>welcome</li><li>jajd</li></ul></p><p class=\\\"sceditor-nlf\\\"><br></p>', 'upload/Abs_206_1563257592.jpg', '2019-07-16 11:43:12'),
 (52, 'Aaaa', ':angel:', '<p><img src=\\\"emoticons/angel.png\\\" data-sceditor-emoticon=\\\":angel:\\\" alt=\\\":angel:\\\" title=\\\":angel:\\\">hjgfjhfjhf</p>', 'upload/Abs_206_1563258378.jpg', '2019-07-16 11:56:18'),
 (53, 'chetu', 'testing', '<p>test</p>', 'upload/Penguins_1563259215.jpg', '2019-07-16 12:10:15'),
-(54, 'scchethu', 'Hi', '                                        <p style=\\\"\\\" class=\\\"\\\"></p><p style=\\\"\\\" class=\\\"\\\"><b>Slekin is facebook</b></p><p style=\\\"\\\" class=\\\"\\\"></p><ul><li><b>Hi</b></li><li><b>Helli</b></li><li><b>FaceTime&nbsp;</b></li><li><b>yvgytvytbb</b></li><li><b>iujuihuihu</b></li></ul><p></p><p></p>\r\n                <p class=\\\"sceditor-nlf\\\"><br></p>\r\n                \r\n                \r\n                ', 'upload/IMG_20190710_182045_1563260496.jpg', '2019-07-16 12:31:36'),
+(54, 'scchethu', ' Hi', '                                                            <p style=\\\"\\\" class=\\\"\\\"></p><p style=\\\"\\\" class=\\\"\\\"><b>Slekin is facebook</b></p><p style=\\\"\\\" class=\\\"\\\"></p><ul><li><b>Hi</b></li><li><b>Helliht5r+ru</b></li><li><b>FaceTime&nbsp;</b></li><li><b>yvgytvytbb</b></li><li><b>iujuihuihu</b></li></ul><p></p><p></p>\r\n                <p class=\\\"sceditor-nlf\\\"><br></p>\r\n                \r\n                \r\n                \r\n                ', 'upload/IMG_20190710_182045_1563260496.jpg', '2019-07-16 12:31:36'),
 (55, 'scchethu', 'Android Internships ', '<p>Canara college&nbsp;14:48:15</p>', 'upload/IMG_20190717_171128_1563441506.jpg', '2019-07-18 14:48:26'),
-(56, 'scchethu', 'Custom toast', '                    <p>Hello guys come on&nbsp;</p>\r\n                ', 'upload/IMG_20190718_155622_1563445684.jpg', '2019-07-18 15:57:18');
+(56, 'scchethu', 'Custom toast', '                    <p>Hello guys come on&nbsp;</p>\r\n                ', 'upload/IMG_20190718_155622_1563445684.jpg', '2019-07-18 15:57:18'),
+(57, 'Manish Alva', ' 60th Anniversary of \\\'The Land Of Crimson Clouds\\\' ', '                                                                                                                        <p>\r\n\r\n</p><!--StartFragment--><p style=\\\"color: rgb(0, 0, 0); font-family: Roboto, arial, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;\\\">Todayâ€™s Doodle celebrates<span>&nbsp;</span><em>The Land of Crimson Clouds</em>, a novel by Russian authors Boris and Arkady Strugatsky, published on this day in 1959. Perhaps the most influential science fiction writers in Russian history, the pair was inspired to collaborate on their first book together through a friendly bet. Arkady wagered his wife Yelena that he and his brother, who studied astronomy in Leningrad, could write a better science fiction novel than those being published in Russia at the time.</p><p style=\\\"color: rgb(0, 0, 0); font-family: Roboto, arial, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;\\\">Censorship guidelines had restricted some of their predecessors, but in the 1950s a â€œthawâ€ was taking place, allowing writers greater freedom of expression. Completed in 1957, the same year as Russiaâ€™s historic Sputnik mission,<span>&nbsp;</span><em>Strana bagrovykh tuch<span>&nbsp;</span></em>(<em>The Land of Crimson Clouds</em>) is the story of a voyage to the planet Venus, set in the late 20th century. Presenting an optimistic view of the future, the Strugatsky brothers foresaw a world where technology and social progress went hand in hand, with photon-drive rockets carrying explorers to Venus in search of uranium to help generate nuclear power.</p><p style=\\\"color: rgb(0, 0, 0); font-family: Roboto, arial, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;\\\">Although they lived hundreds of miles from each other, the Strugatskys went on to collaborate on over 25 novels. Their follow-up,<span>&nbsp;</span><em>Noon: 22nd Century</em>, introduced the â€œNoon Universe,â€ interpreted by some as an allegory for the ideals of the Soviet Union, a world filled with intelligent, hard-working people happily engaged in interesting work.</p><p style=\\\"color: rgb(0, 0, 0); font-family: Roboto, arial, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;\\\">By the late 1960s, the brothers increasingly used their writing to offer subtle critiques of authoritarian government, setting the action in faraway universes. Although some of their later works were censored for political reasons, their family has since made all their work available online as the writers originally intended.</p><!--EndFragment--><p>\r\n\r\n                        </p><p class=\\\"sceditor-nlf\\\"><br></p>\r\n                \r\n                \r\n                \r\n                \r\n                \r\n                ', 'upload/1_1564028967.png', '2019-07-25 09:58:30'),
+(58, 'scchethu', 'Canara college hacking workshop', '<p>Finally it\\\'s ready to finsish</p>', 'upload/IMG_20190726_103017_1564139029.jpg', '2019-07-26 16:33:49');
 
 -- --------------------------------------------------------
 
@@ -121,13 +126,39 @@ CREATE TABLE `registration` (
 --
 
 INSERT INTO `registration` (`id`, `name`, `pass`, `phno`, `image`, `email`) VALUES
-(2, 'manish', 626262, '123456789', '', ''),
 (3, 'Alva', 121212, '9611825370', 'profile/male_1563252165.png', 'mmmm@gmail.com'),
 (4, 'Aaaa', 1234, '6360090436', 'profile/w1_1563261925.jpg', 'manish.ma.alva@gmail.com'),
-(5, 'chetha sc', 9611, '2147483647', 'profile/male_1562915355.png', ''),
-(9, 'Manish Alva', 1234, '9844351967', 'profile/IMG20190714124655_1563345406.jpg', 'manishalva20.ma@gmail.com'),
+(9, 'Manish Alva', 1234, '9844351967', 'profile/IMG20190713141923_1563950490.jpg', 'manishalva20.ma@gmail.com'),
 (10, 'scchethu', 9611825, '9611825370', 'profile/IMG_20190713_105321_1563258881.jpg', 'scchethu@gmail.com'),
-(11, 'chetu', 123456789, '943265614', 'profile/Chrysanthemum_1563259299.jpg', 'chatu@kethu.com');
+(11, 'chetu', 123456789, '943265614', 'profile/Chrysanthemum_1563259299.jpg', 'chatu@kethu.com'),
+(12, 'Maa', 12345, '9481759326', 'profile/Abs_206_1563775175.jpg', 'mdndn@mmm.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_comment`
+--
+
+CREATE TABLE `tbl_comment` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `comment` varchar(200) NOT NULL,
+  `sender_name` varchar(40) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_comment`
+--
+
+INSERT INTO `tbl_comment` (`comment_id`, `post_id`, `comment`, `sender_name`, `date`) VALUES
+(51, 58, '<p>hi Hellow</p>', 'Manish Alva', '2019-07-27 07:11:41'),
+(52, 58, '<p>bdiubeduibasi</p>', 'Manish Alva', '2019-07-27 08:16:49'),
+(53, 58, '<p>bdiubeduibasi</p>', 'Manish Alva', '2019-07-27 08:17:45'),
+(54, 58, '<p>Good Afternoon</p>', 'Manish Alva', '2019-07-27 08:26:18'),
+(55, 57, '<p>Hi hellow</p>', 'Manish Alva', '2019-07-27 08:33:17'),
+(56, 57, '<p>Thhfy\\\"hfhfhjjiuff\\\'\\\"</p>', 'Manish Alva', '2019-07-27 08:36:03'),
+(57, 57, '<p>Thhfy\\\"hfhfhjjiuff\\\'\\\"</p>', 'Manish Alva', '2019-07-27 08:36:47');
 
 --
 -- Indexes for dumped tables
@@ -150,7 +181,14 @@ ALTER TABLE `post`
 --
 ALTER TABLE `registration`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `tbl_comment`
+--
+ALTER TABLE `tbl_comment`
+  ADD PRIMARY KEY (`comment_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -160,13 +198,19 @@ ALTER TABLE `registration`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tbl_comment`
+--
+ALTER TABLE `tbl_comment`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
