@@ -14,11 +14,13 @@ if(isset($_POST['login']))
     $result = mysqli_query($conn,"SELECT name, pass FROM registration WHERE name='$username' AND pass='$password'");
     if(mysqli_num_rows($result)==1)
     {
+        
         $_SESSION['user']=$username;
      header("location:index.php?route=home");
     }
     else
     { 
+        
     alert("Invalid User or Password");
     }
     }
@@ -178,6 +180,35 @@ function yPost(){
     $conn->close();
 }
 
+function uPost(){
+    if (isset($_GET['sea1'])) {
+        $search = $_GET['sea1'];
+      echo "$search";
+    } else{
+        alert("No post found");
+    }
+
+   // $name =mysqli_real_escape_string($conn,addslashes($_REQUEST["uname"]));
+    //echo "$name";
+    $conn = new mysqli("localhost","root","","login");
+    $result = mysqli_query($conn,"SELECT * FROM post Where name='$search' or body like '%$search%' or title like '%$search%' order by id desc");
+    $html="";
+    if(mysqli_num_rows($result)>0)
+    {
+     while($row=mysqli_fetch_array($result))
+     {
+
+        $html.=userPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
+     }
+     return $html;
+    }
+    else
+    { 
+    alert("No post found");
+    }
+    $conn->close();
+}
+
 function controllProfile(){
     if(!isset($_SESSION['user'])) {
         header("Location:index.php");
@@ -291,7 +322,7 @@ function deleteLikeById($id,$user)
         $conn = new mysqli("localhost","root","","login");
         $name=$_SESSION['user'];
         $id =mysqli_real_escape_string($conn,addslashes($_REQUEST["delete"]));
- //$id=$_GET['delete'];
+ 
  
 
  $result = mysqli_query($conn,"DELETE FROM `post` WHERE name='$name' and id='$id'");
@@ -350,7 +381,6 @@ if ($conn->connect_error)
 {
     die($conn->connect_error);
 }
-//$id=$_POST['id'];
 $id=mysqli_real_escape_string($conn,addslashes($_REQUEST["id"]));
 if(empty($_FILES["image"]["name"]))
 {
@@ -390,6 +420,56 @@ function getLike($id)
 }
 
 
+if(isset($_POST['com']))
+{
+    $conn = new mysqli("localhost","root","","login");
+    if ($conn->connect_error)
+     {
+         die($conn->connect_error);
+     }
+         $name=$_SESSION['user'];
+
+         $id=mysqli_real_escape_string($conn,addslashes($_REQUEST["id"]));
+         $com =mysqli_real_escape_string($conn,addslashes($_REQUEST["come"]));
+
+     $q="INSERT INTO `tbl_comment`(`post_id`,`comment`, `sender_name`) VALUES ('$id','$com','$name')";
+     if ($conn->query($q) === TRUE) 
+     {
+        $conn = new mysqli("localhost","root","","login");
+        $id=mysqli_real_escape_string($conn,addslashes($_REQUEST["id"]));
+        $result = mysqli_query($conn,"SELECT * FROM tbl_comment WHERE post_id='$id' order by comment_id desc");
+        $html="";
+        if(mysqli_num_rows($result)>0)
+        {
+        $row=mysqli_fetch_array($result);
+            return comments($row[2],$row[3]);
+        }
+        alert("comment added");
+     }
+      else {
+          alert("not created");
+      }
+     
+     $conn->close();
+     }
+     
+
+function viewcom()
+{
+    $conn = new mysqli("localhost","root","","login");
+    $id=mysqli_real_escape_string($conn,addslashes($_REQUEST["id"]));
+    $result = mysqli_query($conn,"SELECT * FROM tbl_comment WHERE post_id='$id' order by comment_id desc");
+    $html="";
+    if(mysqli_num_rows($result)>0)
+    {
+    while($row=mysqli_fetch_array($result))
+    {
+        $html.=viewcomm($row[2],$row[3],$row[4]);
+    }
+    return $html;
+}
+$conn->close();
+}
 
 
 

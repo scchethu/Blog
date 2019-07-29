@@ -10,13 +10,20 @@ include_once"controller.php";
         <title>Blog</title>
         <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">   
-        <link rel="stylesheet" href="css/style.css"/>
+        
+<link rel="stylesheet" href="css/style.css"/>
+
+        
         <link rel="stylesheet" href="./minified/themes/default.min.css" id="theme-style" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="jquery-3.2.1.min.js"></script>
+       
         <script
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
@@ -75,7 +82,7 @@ if(isset($_GET['route']))
             break;
         case "home": //echo home(controllPost());
         if(!isset($_SESSION['user']))
-        echo Box(loginForm());
+        echo loginForm();
         else
         {
         $arr=controllPost();
@@ -108,11 +115,20 @@ if(isset($_GET['route']))
         case "add":
         echo home(AddPost());
         break;
+        case "com":
+        echo home(Comments($_GET['id']));
+        break;
         case "my":
         echo home(yPost());
         break;
+        case "sec":
+        echo home(uPost());
+        break;
         case "edt":
         echo home(EditProfile());
+        break;
+        case "pro":
+        echo home(controllProfile());
         break;
         case "logout":
         session_destroy();
@@ -133,7 +149,40 @@ if(isset($_GET['route']))
 }else
 {
     if(isset($_SESSION['user']))
-    echo home(controllPost());
+    {
+    
+    $arr=controllPost();
+    $pageno=$arr['pageno'];
+    $total_pages=$arr['total_pages'];
+     echo home($arr['html']);
+    ?>
+<div class="row m-sm-5">
+<div class="col-md-4"></div>
+<div class="col-md-8 mx-auto  d-block"  style="margin-top: 15px">
+<nav>
+      <ul class="pagination justify-content-center pb-3">
+          <li  class="page-item active"><a href="?route=home&pageno=1" class="page-link">First</a></li>
+          <li class="<?php if($pageno<=1){ echo 'disabled'; } ?> page-item active">
+              <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?route=home&pageno=".($pageno - 1); } ?>" class="page-link">Prev</a>
+          </li>
+          <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?> page-item active">
+              <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?route=home&pageno=".($pageno + 1); } ?>" class="page-link">Next</a>
+          </li>
+          <?php if($pageno!=$total_pages)
+          {
+            
+              echo ' <li class="page-item active"><a href="?route=home&pageno=<?php echo $total_pages; ?>" class="page-link">Last</a></li>';
+          }
+         ?>
+      </ul>
+  </nav>
+</div>
+</div>
+    
+   
+<?php
+
+    }
     else
     echo Box(loginForm());
 
@@ -154,16 +203,5 @@ if(isset($_GET['route']))
 				icons: 'monocons',
 				style: './minified/themes/content/default.min.css'
 			});
-
-
-			var themeInput = document.getElementById('theme');
-			themeInput.onchange = function() {
-				var theme = './minified/themes/' + themeInput.value + '.min.css';
-
-				document.getElementById('theme-style').href = theme;
-			};
-
-
-   
 		</script>
 </html>
