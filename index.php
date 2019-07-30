@@ -121,7 +121,10 @@ if(isset($_GET['route']))
         case "my":
         echo home(yPost());
         break;
-        case "sec":
+        case "Cat":
+        echo home(controlCat());
+        break;
+        case "sea":
         echo home(uPost());
         break;
         case "edt":

@@ -35,7 +35,7 @@ function loginForm(){
                   </div>
                     <hr class="my-4">
                     <a href="?route=fpass" class="card-link text-primary" style="float:left" /> Forgot Password?</a>
-                    <a href="?route=reg"  class="card-link text-primary" /> Not Register?</a>
+                    <a href="?route=reg"  class="card-link text-primary" /> Register Now</a>
                     <a href="#"  class="card-link text-primary" /> </a>
                     <a href="#" class="btnb btn-google btn-user  btn-block text-center">
                         <i class="fab fa-google fa-fw te"></i> Login with Google
@@ -68,7 +68,7 @@ return '
                   <input type="number" class="form-control" name="phone" placeholder="Enter phone number" required>
                   <input type="password" class="form-control" name="password"  placeholder="Enter Password" required>
                   <div class="custom-file">
-<input id="uploadImage" class="custom-file-input" type="file" name="image" onchange="PreviewImage();" />
+<input id="uploadImage" class="custom-file-input" type="file" name="image" onchange="PreviewImage();"  required>
 <label class="custom-file-label" for="customFile">Choose image</label>
 </div>
 <script type="text/javascript">
@@ -157,9 +157,28 @@ return '
     <li class="nav-item">
       <a class="nav-link" href="?route=add">Add <i class="far fa-plus-square"></i></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item dropdown">
             <a class="nav-link" href="?route=my">My post <i class="far fa-address-card"></i></a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#"  id="navbardrop" data-toggle="dropdown">Category <i class="far fa-list-alt"></i>
+            <div class="dropdown-menu" style="background-color: #E40E18 ">
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Travel">Travel</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Technology">Technology</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Design">Design</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Culture">Culture</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Business">Business</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Politics">Politics</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Opinion">Opinion</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Science">Science</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Health">Health</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Style">Style</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Students">Students</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=News">News</a>
+        <a class="dropdown-item text-black" href="?route=Cat&opt=Jobs">Jobs</a>
+      </div></a>
+          </li>
+          
           <li class="nav-item d-sm-none ">
             <a class="nav-link" href="?route=pro">My Profile <i class="far fa-user-circle"></i></a>
           </li>
@@ -175,16 +194,23 @@ return '
   <a href="#" id="sel" class="search_icon"><i class="fas fa-search"></i></a>
   </div>
   <script>
+   
       $("#sel").on("click", function (e) {
-       // alert ($("#sea").val());
+       
+      // alert ($("#sea").val());
         window.location.href="./index.php?route=sea&sea1="+$(".sea").val();
+    
     });
     </script>
   <script>
+    
   $("#sell").on("click", function (e) {
-   // alert ($("#sea").val());
+    
+  // alert ($("#sea").val());
     window.location.href="./index.php?route=sea&sea1="+$(".sear").val();
+    
 });
+    
 </script>
 
 
@@ -401,8 +427,25 @@ function AddPost()
                 <input type="text" name="tittle"  placeholder="Enter blog tittle" required>
                     <textarea id="example" name="content" style="height:300px;width:100%;">
                         </textarea>
-               
-                
+                        <div class="col-auto my-1">
+                            <select name="category" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                              <option selected>Select content category</option>
+                              <option value="Travel">Travel</option>
+                              <option value="Technology">Technology</option>
+                              <option value="Design">Design</option>
+                              <option value="Culture">Culture</option>
+                              <option value="Business">Business</option>
+                              <option value="Politics">Politics</option>
+                              <option value="Opinion">Opinion</option>
+                              <option value="Science">Science</option>
+                              <option value="Health">Health</option>
+                              <option value="Style">Style</option>
+                              <option value="Students">Students</option>
+                              <option value="News">News</option>
+                              <option value="Jobs">Jobs</option>
+                            </select>
+                        </div>
+                        
                         <div class="custom-file">
                             <input id="uploadImage" class="custom-file-input" type="file" name="image" onchange="PreviewImage();" />
                             <label class="custom-file-label" for="customFile">Choose image</label>
@@ -588,6 +631,41 @@ function viewcomm($c,$name,$date)
       </div>
       </div>';
 
+}
+function postCat($id,$n,$t,$c,$im,$da)
+{
+  return ' <div class="card mt-3 shadow border-radius:.30rem;">
+    
+      <div class="card-header font-weight-bold text-white " style="background-color:#3B3B98">
+        '.stripslashes($t).'
+      <span class="float-right text-white">#'.$id.'</span>
+      </div>
+      <img class="card-img-top" style="max-height: 400px" src="'.$im.'" alt="Card image">
+      <div class="card-body ex3">
+          '.stripslashes($c).'
+      </div>
+      <div class="card-footer">
+          <div class="card-text float-left">
+                  <b>Author: '.$n.'</b>
+                  <br/>
+                 <span class="text-muted">Date:'.$da.'</span>
+                 <br/>
+                 <b>
+                  
+              <a href ="?route=com" class="btn btn-primary m-2 " ><i class="far fa-comments"></i> Comments</a></b> 
+          </div>
+          <div class="card-text float-right">
+          <div class="btn-group">
+              <a href ="?route=home&like='.$id.'"class="btn btn-link text-danger "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart text-danger"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a>
+            </div>
+            <br/>
+            <div>
+                  <b>Likes: '.getLike($id).'</b> 
+                </div>
+              </div>
+      </div>
+      
+  </div>';
 }
 
 ?>

@@ -26,6 +26,9 @@ if(isset($_POST['login']))
     }
     $conn->close();
 }
+
+
+
 if(isset($_POST['reg']))
 {
     $fileinfo=PATHINFO($_FILES["image"]["name"]);
@@ -51,6 +54,8 @@ if ($conn->query($q) === TRUE) {
 }
 $conn->close();
 }
+
+
 
 if(isset($_POST['fpass']))
 {
@@ -88,12 +93,13 @@ if(isset($_POST['add']))
     $conn = new mysqli("localhost","root","","login");
 $tit =mysqli_real_escape_string($conn,addslashes($_REQUEST["tittle"]));
 $cont =mysqli_real_escape_string($conn,addslashes($_REQUEST["content"]));
+$cat =mysqli_real_escape_string($conn,addslashes($_REQUEST["category"]));
 
 if ($conn->connect_error)
 {
     die($conn->connect_error);
 }
-$q="INSERT INTO `post`(`name`,`title`, `body`,`image`) VALUES ('$name','$tit','$cont','$location')";
+$q="INSERT INTO `post`(`name`,`title`, `body`,`category`,`image`) VALUES ('$name','$tit','$cont','$cat','$location')";
 if ($conn->query($q) === TRUE) 
 {
     alert("succesfully created");
@@ -129,6 +135,9 @@ $conn->close();
 
     $conn->close();
 }*/
+
+
+
 function controllPost(){
     if (isset($_GET['pageno'])) {
       $pageno = $_GET['pageno'];
@@ -154,11 +163,14 @@ function controllPost(){
     $res_data = mysqli_query($conn,$sql);
     $html='';
     while($row = mysqli_fetch_array($res_data)){
-        $html.=viewPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$pageno);
+        $html.=viewPost($row[0],$row[1],$row[3],$row[4],$row[5],$row[6],$pageno);
     }
     return compact('pageno','total_pages','html');
     $conn->close();
 }
+
+
+
 function yPost(){
     $a=$_SESSION['user'];
     $conn = new mysqli("localhost","root","","login");
@@ -169,7 +181,7 @@ function yPost(){
      while($row=mysqli_fetch_array($result))
      {
 
-        $html.=myPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
+        $html.=myPost($row[0],$row[1],$row[3],$row[4],$row[5],$row[6]);
      }
      return $html;
     }
@@ -179,6 +191,8 @@ function yPost(){
     }
     $conn->close();
 }
+
+
 
 function uPost(){
     if (isset($_GET['sea1'])) {
@@ -198,16 +212,19 @@ function uPost(){
      while($row=mysqli_fetch_array($result))
      {
 
-        $html.=userPost($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
+        $html.=userPost($row[0],$row[1],$row[3],$row[4],$row[5],$row[6]);
      }
      return $html;
     }
     else
     { 
     alert("No post found");
+    header("location:index.php?route=home");
     }
     $conn->close();
 }
+
+
 
 function controllProfile(){
     if(!isset($_SESSION['user'])) {
@@ -228,6 +245,8 @@ function controllProfile(){
 
     $conn->close();
 }
+
+
 function EditProfile(){
     $a=$_SESSION['user'];
     $conn = new mysqli("localhost","root","","login");
@@ -241,6 +260,8 @@ function EditProfile(){
 
     $conn->close();
 }
+
+
 
 if(isset($_POST['edt']))
 {
@@ -281,7 +302,9 @@ if ($conn->query($q) === TRUE)
 $conn->close();
 
 }
-    
+
+
+
 function deleteLikeById($id,$user)
 {
 
@@ -297,6 +320,9 @@ function deleteLikeById($id,$user)
      }
      $conn->close(); 
 }
+
+
+
 
     if(isset($_GET['like']))
     {
@@ -317,14 +343,12 @@ function deleteLikeById($id,$user)
     }
 
 
+
     if(isset($_GET['delete']))
     {
         $conn = new mysqli("localhost","root","","login");
         $name=$_SESSION['user'];
         $id =mysqli_real_escape_string($conn,addslashes($_REQUEST["delete"]));
- 
- 
-
  $result = mysqli_query($conn,"DELETE FROM `post` WHERE name='$name' and id='$id'");
  if(mysqli_affected_rows($conn)>0) 
  {
@@ -351,7 +375,7 @@ function deleteLikeById($id,$user)
      while($row=mysqli_fetch_array($result))
      {
 
-        $html.=EditPost($row[0],$row[2],$row[3],$row[4]);
+        $html.=EditPost($row[0],$row[3],$row[4],$row[5]);
      }
 
      
@@ -363,12 +387,14 @@ function deleteLikeById($id,$user)
     }
     $conn->close();
     return $html;
-}
+ }
+
+
+
+
 
     if(isset($_POST['savePost']))
 {
-    
-
    $fileinfo=PATHINFO($_FILES["image"]["name"]);
 	$newFilename=$fileinfo['filename'] ."_". time() . "." . $fileinfo['extension'];
 	move_uploaded_file($_FILES["image"]["tmp_name"],"upload/" . $newFilename);
@@ -402,6 +428,8 @@ $conn->close();
 
 }
 
+
+
 function getLike($id)
 {
     $conn = new mysqli("localhost","root","","login");
@@ -418,6 +446,8 @@ function getLike($id)
     }
     $conn->close();
 }
+
+
 
 
 if(isset($_POST['com']))
@@ -452,7 +482,9 @@ if(isset($_POST['com']))
      
      $conn->close();
      }
+
      
+
 
 function viewcom()
 {
@@ -470,6 +502,39 @@ function viewcom()
 }
 $conn->close();
 }
+
+
+
+function controlCat()
+{
+    if(isset($_GET['opt']))
+    {
+        $conn = new mysqli("localhost","root","","login");
+        
+        $com =mysqli_real_escape_string($conn,addslashes($_GET['opt']));
+     
+        $result = mysqli_query($conn,"SELECT * FROM post Where Category='$com' order by id desc");
+        $html="";
+        if(mysqli_num_rows($result)>0)
+        {
+         while($row=mysqli_fetch_array($result))
+         {
+            
+            $html.=postCat($row[0],$row[1],$row[3],$row[4],$row[5],$row[6]);
+         }
+         alert($html);
+         return $html;
+        }
+        else
+        { 
+        alert("No post found");
+        header("location:index.php?route=home");
+        }
+        $conn->close();
+    }
+}
+
+
 
 
 

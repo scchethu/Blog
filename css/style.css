@@ -119,6 +119,10 @@ form button {
     border: 1px solid #ced4da!important;
 }
 
+form input {
+    text-align: ;
+}
+
 form button {
     width: 100%;
     font-size: 1em;
