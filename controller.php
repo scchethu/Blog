@@ -5,19 +5,24 @@ if(isset($_POST['login']))
 
     $conn = mysqli_connect('localhost','root','','login') or die('Unable To connect');
     if($_POST)
-    $username =mysqli_real_escape_string($conn,addslashes($_REQUEST["username"]));
+    $emaili =mysqli_real_escape_string($conn,addslashes($_REQUEST["emailid"]));
     $password =mysqli_real_escape_string($conn,addslashes($_REQUEST["password"]));
     
     if(count($_POST)>0) {
    
     
-    $result = mysqli_query($conn,"SELECT name, pass FROM registration WHERE name='$username' AND pass='$password'");
+    $result = mysqli_query($conn,"SELECT `uname`,`pass` FROM registration WHERE email='$emaili' AND pass='$password'");
     if(mysqli_num_rows($result)==1)
     {
+        while($row = mysqli_fetch_array($result))
+            $user=$row[0];
+            alert($user);
+        {
         
-        $_SESSION['user']=$username;
-     header("location:index.php?route=home");
+        $_SESSION['user']=$user;
+        header("location:index.php?route=home");
     }
+}
     else
     { 
         
@@ -36,7 +41,8 @@ if(isset($_POST['reg']))
 	move_uploaded_file($_FILES["image"]["tmp_name"],"profile/" . $newFilename);
     $location="profile/" . $newFilename;
     $conn = new mysqli("localhost","root","","login"); 
-$name =mysqli_real_escape_string($conn,addslashes($_REQUEST["username"]));
+$name =mysqli_real_escape_string($conn,addslashes($_REQUEST["name"]));
+$uname =mysqli_real_escape_string($conn,addslashes($_REQUEST["username"]));
 $pnum =mysqli_real_escape_string($conn,addslashes($_REQUEST["phone"]));
 $pass =mysqli_real_escape_string($conn,addslashes($_REQUEST["password"]));
 $email =mysqli_real_escape_string($conn,addslashes($_REQUEST["email"]));
@@ -188,6 +194,7 @@ function yPost(){
     else
     { 
     alert("No post found");
+    header("location:index.php?route=home");
     }
     $conn->close();
 }
@@ -232,14 +239,14 @@ function controllProfile(){
         }
     $a=$_SESSION['user'];
     $conn = new mysqli("localhost","root","","login");
-    $result = mysqli_query($conn,"SELECT * FROM registration WHERE name='$a'");
+    $result = mysqli_query($conn,"SELECT * FROM registration WHERE uname='$a'");
     $html="";
     if(mysqli_num_rows($result)>0)
     {
     $row=mysqli_fetch_array($result);
 
 
-        return viewProfile($row[1],$row[3],$row[4],$row[5]);
+        return viewProfile($row[1],$row[2],$row[4],$row[5],$row[6]);
      
     }
 
@@ -250,12 +257,12 @@ function controllProfile(){
 function EditProfile(){
     $a=$_SESSION['user'];
     $conn = new mysqli("localhost","root","","login");
-    $result = mysqli_query($conn,"SELECT * FROM registration WHERE name='$a'");
+    $result = mysqli_query($conn,"SELECT * FROM registration WHERE uname='$a'");
     $html="";
     if(mysqli_num_rows($result)>0)
     {
     $row=mysqli_fetch_array($result);
-        return SaveProfile($row[0],$row[1],$row[2],$row[3],$row[4],$row[5]);
+        return SaveProfile($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6]);
     }
 
     $conn->close();
@@ -271,6 +278,7 @@ if(isset($_POST['edt']))
     $location="profile/" . $newFilename;
     $conn = new mysqli("localhost","root","","login");
     $id=mysqli_real_escape_string($conn,addslashes($_REQUEST["id"]));
+    $name =mysqli_real_escape_string($conn,addslashes($_REQUEST["name"]));
     $uname =mysqli_real_escape_string($conn,addslashes($_REQUEST["username"]));
     $mail =mysqli_real_escape_string($conn,addslashes($_REQUEST["email"]));
 $passwd =mysqli_real_escape_string($conn,addslashes($_REQUEST["password"]));
@@ -284,10 +292,10 @@ if ($conn->connect_error)
 
 if(empty($_FILES["image"]["name"]))
 {
-    $q = "UPDATE `registration` SET `email`='$mail',`phno`='$pno',`pass`='$passwd' WHERE id='$id'"; 
+    $q = "UPDATE `registration` SET `uname`='$username',`email`='$mail',`phno`='$pno',`pass`='$passwd' WHERE id='$id'"; 
 }else
 
-$q = "UPDATE `registration` SET `name`='$uname',`email`='$mail',`phno`='$pno',`pass`='$passwd',`image`='$location' WHERE id='$id'";
+$q = "UPDATE `registration` SET `uname`='$username',`email`='$mail',`phno`='$pno',`pass`='$passwd',`image`='$location' WHERE id='$id'";
 
 if ($conn->query($q) === TRUE) 
 {

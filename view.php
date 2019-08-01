@@ -28,7 +28,7 @@ function loginForm(){
                     <div class="card-body">
           <h1 class="heading card-title text-dark">Login Page</h1>
                 <form method="post"  class="form-signin" action="">
-                    <input type="text" class="form-control" name="username" placeholder="Enter Username" required/>
+                    <input type="text" class="form-control" name="emailid" placeholder="Enter Username" required/>
                     <input type="password" class="form-control"  name="password" placeholder="Enter Password" required/>
                     <div style="margin-top: 10px">
                     <button type="submit"  class="btnb btn-lg btn-primary  text-uppercase" name="login" value="Login"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -63,6 +63,7 @@ return '
  <h1 class="heading card-title text-dark">Registration</h1>
         <form method="post"  class="form-signin text-center" action="" enctype="multipart/form-data">
           <img class="img-thumbnail" id="uploadPreview" style="width: 100px; height: 100px;" />
+                  <input type="text" class="form-control" name="name" placeholder="name" required>
                   <input type="text" class="form-control" name="username" placeholder="username" required>
                   <input type="text" class="form-control" name="email" placeholder="email" required>
                   <input type="number" class="form-control" name="phone" placeholder="Enter phone number" required>
@@ -253,7 +254,7 @@ return '
 }
 
 
-function viewProfile($name,$p,$im,$em){
+function viewProfile($name,$uname,$p,$im,$em){
     $btn="";
     if($_GET['route']!="edt")
     {
@@ -272,6 +273,9 @@ function viewProfile($name,$p,$im,$em){
                     Name : '.$name.'
                 </div>
                 <div>
+                  Username : '.$uname.'
+              </div>
+                <div>
                         Phone : '.$p.'
                     </div>
                     <div>
@@ -281,7 +285,7 @@ function viewProfile($name,$p,$im,$em){
            '.$btn.'
         </div>';
 }
-function SaveProfile($id,$un,$p,$ph,$im,$em){
+function SaveProfile($id,$n,$un,$p,$ph,$im,$em){
     return '
     <div class="card mt-3 shadow">
         <div class="card-header">
@@ -290,6 +294,7 @@ function SaveProfile($id,$un,$p,$ph,$im,$em){
         <div class="card-body">
             <form method="post" action="" class="text-center" enctype="multipart/form-data">
               <img class="img-thumbnail tex" src="'.$im.'" id="uploadPreview" style="width: 200px; height: 100px;" />
+                      <input type="text" name="name" value="'.$n.'" >
                       <input type="text" name="username" value="'.$un.'" >
                       <input type="hidden" value="'.$id.'" name="id">
                       <input type="text"  name="email" value="'.$em.'"  required>
