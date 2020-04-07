@@ -1,0 +1,38 @@
+[
+    {
+     "name":"Apple xxxx",
+      "picture": "images/apple.jpg",
+      "old_price":120,
+      "price":856
+    },
+    {
+      "name":"Tomato",
+      "picture": "images/tomato.jpg",
+      "old_price":100,
+      "price":60
+    },
+     {
+      "name":"Lemon",
+      "picture": "images/lemons.jpg",
+      "old_price":80,
+      "price":45
+    },
+     {
+      "name":"Kiwi",
+      "picture": "images/kiwi.jpg",
+      "old_price":90,
+      "price":60
+    },
+     {
+      "name":"Guava",
+      "picture": "images/guava.jpg",
+      "old_price":85,
+      "price":55
+    },
+     {
+      "name":"Grapes",
+      "picture": "images/grapes.jpg",
+      "old_price":60,
+      "price":40
+    }
+  ]
