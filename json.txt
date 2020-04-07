@@ -1,6 +1,6 @@
 [
     {
-     "name":"Apple xxxx",
+     "name":"Apple ",
       "picture": "images/apple.jpg",
       "old_price":120,
       "price":856
