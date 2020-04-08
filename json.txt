@@ -3,7 +3,7 @@
      "name":"Apple ",
       "picture": "images/apple.jpg",
       "old_price":120,
-      "price":86
+      "price":85
     },
     {
       "name":"Tomato",
